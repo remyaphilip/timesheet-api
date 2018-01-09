@@ -39,7 +39,7 @@ public class EmployeeDto implements Serializable {
 	}
 	
 	public Employee buildEmployee(){
-		return new Employee(this.empName,LocalDate.parse(this.joinDate),this.gender,this.designation,this.email);
+		return new Employee(this.empName,LocalDate.parse(this.joinDate,DATE_FORMAT),this.gender,this.designation,this.email);
 	}
 
 	public Integer getOrganisation() {
