@@ -42,7 +42,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(path = "employee/timelog",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void timeLogging(HttpServletRequest request,@RequestBody List<TimeLog> ){
+	public void timeLogging(HttpServletRequest request){
 		Enumeration<String> en = request.getHeaderNames();
 		while(en.hasMoreElements()){
 			System.out.println(en.nextElement());
