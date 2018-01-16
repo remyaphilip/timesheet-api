@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TimesheetApp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+<style type="text/css">
+    .bs-example{
+    	position:relative;
+		
+		width:870px;
+		
+    }
+	/* Fix alignment issue of label on extra small devices in Bootstrap 3.2 */
+	    .form-horizontal .control-label{
+		text-align:left;
+         padding-top: 2px;
+		 width: 150px;
+		    }
+			
+			.form-horizontal .form-control{
+         padding-top: 2px;
+		 width: 250px;
+		    }
+			 .btn-group{
+         padding-top: 2px;
+		 left:15px;
+		 
+		    }
+	
+</style>
+
+
+ </head>
+<body>
+  
+<div class="container">
+        <h2 style = "color:green">Timesheet </h2>       
+<nav class="navbar navbar-inverse" style = "background-color:green;color:white;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" style = "color:white">Organisation Name</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a id = "addRow" href="#"><span class="glyphicon glyphicon-plus"></span> Add Row</a></li>
+	  <li><a id = "deleteRow" href="#"><span class="glyphicon glyphicon-trash"></span> Remove Row</a></li>
+	  <li><a id = "save" href="#" ><span class="glyphicon glyphicon-floppy-disk"></span> Save</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+  
+  
+  
+  <table Id="timeTable" class="table table-bordered">
+    <thead id="thead" style="background-color:Light gray">
+      <tr>
+		<th id="checkbox" style="width:15px"></th>
+	    <th id="projects">Projects</th>
+        <th id="mon" style="width:100px"></th>
+        <th id="tue" style="width:100px"></th>
+        <th id="wed" style="width:100px"></th>
+		<th id="thu" style="width:100px"></th>
+		<th id="fri" style="width:100px"></th>
+		<th id="sat" style="width:100px"></th>
+		<th id="sun" style="width:100px"></th>
+		<th id="totalHours" style="width:100px">Total Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+		<td><input type="checkbox" id="checkbox" style="width:15px"></td>
+        <td contenteditable='true'>Task1</td>
+        <td contenteditable='true'></td>
+        <td contenteditable='true'></td>
+		<td contenteditable='true'></td>
+		<td contenteditable='true'></td>
+		<td contenteditable='true'></td>
+		<td contenteditable='true'></td>
+		<td contenteditable='true'></td>
+		<td contenteditable='true'></td>
+      </tr>
+	</tbody>
+	<tfoot id "tfoot">
+	  <tr>
+		<td id="checkbox" style="width:15px"></td>
+		<td contenteditable='true' id="projects"></td>
+		<td id="mon" style="width:100px"></td>
+		<td id="tue" style="width:100px"></td>
+		<td id="wed" style="width:100px"></td>
+		<td id="thu" style="width:100px"></td>
+		<td id="fri" style="width:100px"></td>
+		<td id="sat" style="width:100px"></td>
+		<td id="sun" style="width:100px"></td>
+		<td id="totalHours" style="width:100px"></td>
+	  </tr>
+    </tfoot>
+  </table>
+
+  
+
+  
+  
+  
+  
+  </div>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--<script src="‪C:\Users\Remya\workspace\timesheet\timesheetui\script.js" </script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script type="text/javascript">
+	$(document).ready(function(){
+		
+		var dateObj;
+		const tasks = ["Contractor Leave", "Sick Leave", "Project Star Trek", "Annual Leave"];
+		
+		$("#addRow").click(function(){	
+			console.log("Clicked test");
+			var markup = "<tr><td><input id='checkbox' type='checkbox'></td>"
+						+ "<td contenteditable = 'true'><select>"+
+						+ "<option>1</option>"
+						+ "<option>2</option>"
+						+ "<option>3</option>"
+						+ "</select></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td>"
+						+ "<td contenteditable = 'true'></td></tr>";
+			$("#timeTable tbody").append(markup);
+		});
+		
+		$(function(){
+			$.ajax({
+				url: "http://localhost:8080/employee/101",
+				method: "Get",
+				success: function(data,status){
+				
+					dateObj = new Date(data.joinDate.year,
+									   data.joinDate.monthValue - 1,
+									   data.joinDate.dayOfMonth);
+					console.log(dateObj);
+					
+				
+			//	$('#timeTable th:not(:first-child)').each(function(){
+				$('#timeTable th:not(#checkbox,#projects)').each(function(){
+				if($(this).attr('Id') === 'totalHours') return;
+				$(this).text(dateObj.getDate()+'/'+dateObj.getMonth()+'/'+dateObj.getFullYear());
+				dateObj.setDate(dateObj.getDate() + 1);
+				});	
+				}
+			});
+		});	
+			
+		$("#deleteRow").click(function(){
+			console.log('test1');
+			$("#timeTable tbody").find('input[id="checkbox"]').each(function(){
+				console.log('test2');
+				if($(this).is(":checked")){
+					$(this).parents("tr").remove();
+					console.log('test3');
+				}
+			});
+		});
+		
+		
+		
+		//$("#save").click(function(){	
+		//		var tblHead = $('#timeTable thead tr').map(function() {
+		//			return [$(this).find('th:not(#checkbox,#projects,#totalHours)').map(function() {
+		//				return $(this).text();
+		//			}).get()];
+		//		}).get();
+		//		console.log(tblHead);
+		//		
+		//		var tblRow = $('#timeTable tbody tr').map(function() {
+		//			return [$(this).find('td:not(:first, :last)').map(function() {
+		//				return $(this).text();
+		//			}).get()];
+		//		}).get();
+		//		console.log(tblRow);
+		//});
+		
+		$("#save").click(function(){
+			var j,k;;
+			var tabData = [];
+			var rows;
+			$("#timeTable tbody tr").each(function(j,tr){
+				var $project = $(this).find('td:nth-child(2)').text();
+				$(this).find('td:not(:first,:nth-child(2),:last)').each(function(k,td){
+					var head = $("#timeTable  th").eq(k+2).text();
+					if(!($(this).html() == '')){
+						rows = '{' + head +','+ $project + ',' + $(this).text() + '}';
+						tabData.push(rows);
+					};	
+				});
+			});
+			console.log(JSON.stringify(tabData));
+		
+			$.ajax(
+				"http://localhost:8080/employee/timelog",
+				{
+					type: 'POST',
+					data: JSON.stringify(tabData),
+					headers : {
+						'Content-Type': "application/json",
+						'Accept': "application/json",
+					},
+					success: function(tabData,status){
+						alert('table data '+ tabData + 'status '+ status);
+					},
+					error: function(tabData,status){
+						alert('failed - ' + JSON.stringify(tabData) );
+						console.log(tabData);
+					}
+				});		
+		});
+	});
+	
+	
+			
+</script>
+ 
+  
+  
+</body>
+</html>
