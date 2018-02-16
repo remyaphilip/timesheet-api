@@ -1,5 +1,7 @@
 package com.timesheet.model;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,39 +15,41 @@ public class TimeLog implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3947082565357864922L;
+	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 	private Integer empId;
-	private Date date;
-	private String project;
+	private LocalDate logDate;
+	private String task;
 	private float hours;
 	
 	public TimeLog(){
 	}
 	
 
-	public TimeLog(Date date, String project, float timeTaken) {
+	public TimeLog(Integer empId,LocalDate logDate, String task, float hours) {
 		super();
-		this.date = date;
-		this.project = project;
-		this.hours = timeTaken;
+		this.empId = empId;
+		this.logDate = logDate;
+		this.task = task;
+		this.hours = hours;
 	}
 
 
 	@Column(name = "date", length = 10)
-	public Date getDate() {
-		return date;
+	public LocalDate getDate() {
+		return logDate;
 	}
 	
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(LocalDate date) {
+		this.logDate = date;
 	}
 
 	@Column(name = "project", length = 45)
 	public String getProject() {
-		return project;
+		return task;
 	}
 
 	public void setProject(String project) {
-		this.project = project;
+		this.task = project;
 	}
 
 	@Column(name = "timetaken")

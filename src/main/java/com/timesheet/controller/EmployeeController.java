@@ -1,7 +1,9 @@
 package com.timesheet.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+import com.timesheet.dto.TimeLogDto;
 import com.timesheet.model.Employee;
+import com.timesheet.model.TimeLog;
 import com.timesheet.repository.EmployeeRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EmployeeController {
 
+	String jsonArrayString;
+	Gson googleJson = new Gson();
+	ArrayList javaArrayListFromGson;
 	@Autowired
 	public EmployeeRepository employeeRepository;
 
@@ -41,25 +49,23 @@ public class EmployeeController {
 		return employeeRepository.findOne(id);
 	}
 	
-	@RequestMapping(path = "employee/timelog",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void timeLogging(HttpServletRequest request){
-		Enumeration<String> en = request.getHeaderNames();
-		while(en.hasMoreElements()){
-			System.out.println(en.nextElement());
-		}
-		try {
-			String s = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-			System.out.println(s);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	@RequestMapping(path = "employee/timelog/tabData",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void timeLogging(@RequestBody ArrayList<TimeLog> tabData){
+		System.out.println(tabData);
 	}
 	
-	
-//	@ExceptionHandler(value = SQLException.class)
-//	public String exeHandler(SQLException s){
-//		return s.getSQLState();
+//	public void timeLogging(HttpServletRequest request){
+//		Enumeration<String> en = request.getHeaderNames();
+//		while(en.hasMoreElements()){
+//			System.out.println(en.nextElement());
+//		}
+//		try {
+//			String s = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+//			System.out.println(s);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //	}
-
+	
 }

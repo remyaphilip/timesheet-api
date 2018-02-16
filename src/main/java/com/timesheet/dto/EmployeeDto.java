@@ -13,13 +13,8 @@ public class EmployeeDto implements Serializable {
 
 	private static final long serialVersionUID = -7314008048174880868L;
 	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-//	@Autowired 
-//	private static OrganisationRepository orgRepo;
-//	
 	private Integer organisation;
 	private String empName;
-//	@JsonInclude(value=Include.NON_EMPTY)
-//	@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="MM/DD/YYYY",timezone="PST")
 	private String joinDate;
 	private String gender;
 	private String designation;

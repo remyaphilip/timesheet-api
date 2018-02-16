@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.timesheet.dto.EmployeeDto;
+import com.timesheet.dto.TimeLogDto;
 import com.timesheet.model.Employee;
 import com.timesheet.model.Organisation;
 import com.timesheet.repository.EmployeeRepository;
@@ -33,11 +34,13 @@ public class TimesheetService {
 	public void addServiceEmployee(EmployeeDto employee){
 		employeeRepository.save(employee.buildEmployee());
 	}
-	
-	
 
 	public Organisation getOrganisation(Integer orgId){
 		return organisationRepository.findOne(orgId);
+	}
+	
+	public void addServiceTimeLog(TimeLogDto timeLogDto){
+		System.out.println(timeLogDto);
 	}
 
 }

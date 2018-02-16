@@ -111,23 +111,18 @@
   </div>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--<script src="‪C:\Users\Remya\workspace\timesheet\timesheetui\script.js" </script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
  <script type="text/javascript">
 	$(document).ready(function(){
-		
+		var empData;
 		var dateObj;
 		const tasks = ["Contractor Leave", "Sick Leave", "Project Star Trek", "Annual Leave"];
 		
 		$("#addRow").click(function(){	
-			console.log("Clicked test");
 			var markup = "<tr><td><input id='checkbox' type='checkbox'></td>"
-						+ "<td contenteditable = 'true'><select>"+
-						+ "<option>1</option>"
-						+ "<option>2</option>"
-						+ "<option>3</option>"
-						+ "</select></td>"
+						+ "<td contenteditable = 'true'></td>"
 						+ "<td contenteditable = 'true'></td>"
 						+ "<td contenteditable = 'true'></td>"
 						+ "<td contenteditable = 'true'></td>"
@@ -139,16 +134,25 @@
 			$("#timeTable tbody").append(markup);
 		});
 		
+			
+			
+		$("#deleteRow").click(function(){
+			$("#timeTable tbody").find('input[id="checkbox"]').each(function(){
+				if($(this).is(":checked")){
+					$(this).parents("tr").remove();
+				}
+			});
+		});
+		
 		$(function(){
 			$.ajax({
 				url: "http://localhost:8080/employee/101",
 				method: "Get",
 				success: function(data,status){
-				
+					empData = data;
 					dateObj = new Date(data.joinDate.year,
 									   data.joinDate.monthValue - 1,
 									   data.joinDate.dayOfMonth);
-					console.log(dateObj);
 					
 				
 			//	$('#timeTable th:not(:first-child)').each(function(){
@@ -159,55 +163,47 @@
 				});	
 				}
 			});
-		});	
-			
-		$("#deleteRow").click(function(){
-			console.log('test1');
-			$("#timeTable tbody").find('input[id="checkbox"]').each(function(){
-				console.log('test2');
-				if($(this).is(":checked")){
-					$(this).parents("tr").remove();
-					console.log('test3');
-				}
-			});
 		});
 		
-		
-		
-		//$("#save").click(function(){	
-		//		var tblHead = $('#timeTable thead tr').map(function() {
-		//			return [$(this).find('th:not(#checkbox,#projects,#totalHours)').map(function() {
-		//				return $(this).text();
-		//			}).get()];
-		//		}).get();
-		//		console.log(tblHead);
-		//		
-		//		var tblRow = $('#timeTable tbody tr').map(function() {
-		//			return [$(this).find('td:not(:first, :last)').map(function() {
-		//				return $(this).text();
-		//			}).get()];
-		//		}).get();
-		//		console.log(tblRow);
-		//});
 		
 		$("#save").click(function(){
 			var j,k;;
 			var tabData = [];
-			var rows;
+			var row = {};
+			//$("#timeTable tbody tr").each(function(j,tr){
+			//	var $project = $(this).find('td:nth-child(2)').text();
+			//	$(this).find('td:not(:first,:nth-child(2),:last)').each(function(k,td){
+			//		var head = $("#timeTable  th").eq(k+2).text();
+			//		if(!($(this).html() == '')){
+			//			row = '{' + empData.empId + ',' + head +','+ $project + ',' + $(this).text() + '}';
+			//			tabData.push(row);
+			//		};	
+			//	});
+			//});
+			
+			
 			$("#timeTable tbody tr").each(function(j,tr){
 				var $project = $(this).find('td:nth-child(2)').text();
 				$(this).find('td:not(:first,:nth-child(2),:last)').each(function(k,td){
 					var head = $("#timeTable  th").eq(k+2).text();
+					var headDate = new String(head.substring(3,5)  + '-' +
+								   head.substring(0,2) + '-' +
+								   head.substring(6,10));
 					if(!($(this).html() == '')){
-						rows = '{' + head +','+ $project + ',' + $(this).text() + '}';
-						tabData.push(rows);
+						row.empId    = empData.empId;
+						row.logDate  = headDate;  
+						row.task     = $project;
+						row.hours    = parseFloat($(this).html());
+						tabData.push(row);
 					};	
 				});
 			});
+			
+			
 			console.log(JSON.stringify(tabData));
 		
 			$.ajax(
-				"http://localhost:8080/employee/timelog",
+				"http://localhost:8080/employee/timelog/tabData",
 				{
 					type: 'POST',
 					data: JSON.stringify(tabData),
@@ -215,6 +211,7 @@
 						'Content-Type': "application/json",
 						'Accept': "application/json",
 					},
+					
 					success: function(tabData,status){
 						alert('table data '+ tabData + 'status '+ status);
 					},
