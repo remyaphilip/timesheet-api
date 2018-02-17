@@ -26,7 +26,6 @@ public class TimesheetService {
 	@Autowired
 	OrganisationRepository organisationRepository;
 	
-
 	public List<Employee> getServiceEmployees(){
 		System.out.println(employeeRepository.findAll());
 		return employeeRepository.findAll();
@@ -37,6 +36,8 @@ public class TimesheetService {
 	}
 
 	public Organisation getOrganisation(Integer orgId){
+		//TODO: remove this line
 		return organisationRepository.findOne(orgId);
+	
 	}
 }

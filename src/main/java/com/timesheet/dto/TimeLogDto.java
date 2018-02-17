@@ -15,7 +15,6 @@ public class TimeLogDto implements Serializable {
 	@JsonProperty("logDate")
 	private String logDateStr;
 
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -60,5 +59,4 @@ public class TimeLogDto implements Serializable {
 	public TimeLog createTimeLog(){
 		 return new TimeLog(LocalDate.parse(this.logDateStr,DATE_FORMAT),this.task,this.hours);
 	}
-	
 }
