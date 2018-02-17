@@ -4,30 +4,61 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timesheet.model.TimeLog;
 
 public class TimeLogDto implements Serializable {
 	private static final long serialVersionUID = -8196181397762073126L;
 	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-	private Integer empId;
-	private String logDateStr;
 	private String task;
 	private float hours;
+	@JsonProperty("logDate")
+	private String logDateStr;
 
-	public TimeLogDto() {
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("TimeLogDto [logDateStr=").append(logDateStr).append(", task=").append(task).append(", hours=")
+				.append(hours).append("]");
+		return builder.toString();
+	}
+	
+	public TimeLogDto(){}
+	
+	public String getTask() {
+		return task;
 	}
 
-	public TimeLogDto(Integer empId, String logDateStr, String task, float hours) {
+	public void setTask(String task) {
+		this.task = task;
+	}
+
+	public float getHours() {
+		return hours;
+	}
+
+	public void setHours(float hours) {
+		this.hours = hours;
+	}
+
+	public String getLogDateStr() {
+		return logDateStr;
+	}
+
+	public void setLogDateStr(String logDateStr) {
+		this.logDateStr = logDateStr;
+	}
+
+	public TimeLogDto( String logDateStr, String task, float hours) {
 		super();
-		this.empId = empId;
 		this.logDateStr = logDateStr;
 		this.task = task;
 		this.hours = hours;
 	}
 
-	public void createTimeLog(){
-		 new TimeLog(this.empId,LocalDate.parse(this.logDateStr,DATE_FORMAT),this.task,this.hours);
+	public TimeLog createTimeLog(){
+		 return new TimeLog(LocalDate.parse(this.logDateStr,DATE_FORMAT),this.task,this.hours);
 	}
 	
 }

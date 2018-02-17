@@ -5,6 +5,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 import java.time.LocalDate;
 // default package
 // Generated Nov 17, 2017 7:39:13 PM by Hibernate Tools 5.2.3.Final
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -22,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "employee", catalog = "timesheet")
 public class Employee implements java.io.Serializable {
+
 
 	private static final long serialVersionUID = -5459270619631800339L;
 	
@@ -33,6 +38,12 @@ public class Employee implements java.io.Serializable {
 	private String gender;
 	private String designation;
 	private String email;
+	
+	private Set<TimeLog> logs = new HashSet<TimeLog>(0);
+	
+	public void addLog(TimeLog log){
+		this.logs.add(log);
+	}
 
 	public Employee() {
 	}
@@ -48,7 +59,6 @@ public class Employee implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "emp_id", unique = true, nullable = false)
 	public Integer getEmpId() {
 		return this.empId;
@@ -113,4 +123,23 @@ public class Employee implements java.io.Serializable {
 		this.email = email;
 	}
 
+	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
+	public Set<TimeLog> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(Set<TimeLog> logs) {
+		this.logs = logs;
+	}
+	
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Employee [empId=").append(empId).append(", empName=").append(empName).append(", joinDate=")
+				.append(joinDate).append(", gender=").append(gender).append(", designation=").append(designation)
+				.append(", email=").append(email).append(", logs=").append(logs.size()).append("]");
+		return builder.toString();
+	}
+	
 }

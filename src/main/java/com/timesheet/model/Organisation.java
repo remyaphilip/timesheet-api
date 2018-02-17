@@ -25,9 +25,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "organisation", catalog = "timesheet")
 public class Organisation implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3872594794799370089L;
 	private Integer orgId;
 	private String name;
