@@ -30,6 +30,7 @@ public class TimesheetService {
 	public List<Employee> getServiceEmployees(){
 		System.out.println(employeeRepository.findAll());
 		return employeeRepository.findAll();
+		//TODO: testing merge conflicts
 	}
 	
 	public void addServiceEmployee(EmployeeDto employee){
