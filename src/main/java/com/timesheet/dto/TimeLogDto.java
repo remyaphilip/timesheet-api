@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timesheet.model.TimeLog;
+import com.timesheet.domain.Timelog;
 
 public class TimeLogDto implements Serializable {
 	private static final long serialVersionUID = -8196181397762073126L;
@@ -56,7 +56,7 @@ public class TimeLogDto implements Serializable {
 		this.hours = hours;
 	}
 
-	public TimeLog createTimeLog(){
-		 return new TimeLog(LocalDate.parse(this.logDateStr,DATE_FORMAT),this.task,this.hours);
+	public Timelog createTimeLog(){
+		 return new Timelog(LocalDate.parse(this.logDateStr,DATE_FORMAT),this.task,this.hours);
 	}
 }

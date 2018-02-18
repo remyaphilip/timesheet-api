@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.timesheet.domain.Employee;
+import com.timesheet.domain.Organisation;
 import com.timesheet.dto.EmployeeDto;
-import com.timesheet.model.Employee;
-import com.timesheet.model.Organisation;
 import com.timesheet.service.TimesheetService;
 
 import lombok.extern.slf4j.Slf4j;

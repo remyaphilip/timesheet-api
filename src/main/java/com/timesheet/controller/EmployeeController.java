@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.timesheet.domain.Employee;
 import com.timesheet.dto.TimeLogDto;
-import com.timesheet.model.Employee;
 import com.timesheet.repository.EmployeeRepository;
 import com.timesheet.service.TimesheetService;
 

@@ -3,11 +3,8 @@ package com.timesheet.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timesheet.model.Employee;
+
+import com.timesheet.domain.Employee;
 
 public class EmployeeDto implements Serializable {
 

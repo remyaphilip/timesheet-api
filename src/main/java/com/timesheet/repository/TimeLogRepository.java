@@ -2,8 +2,8 @@ package com.timesheet.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.timesheet.model.TimeLog;
+import com.timesheet.domain.Timelog;
 
-public interface TimeLogRepository extends JpaRepository<TimeLog, Integer>{
+public interface TimeLogRepository extends JpaRepository<Timelog, Integer>{
 
 }

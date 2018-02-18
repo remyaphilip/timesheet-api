@@ -4,13 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.timesheet.domain.Employee;
+import com.timesheet.domain.Organisation;
 import com.timesheet.dto.EmployeeDto;
-import com.timesheet.dto.TimeLogDto;
-import com.timesheet.model.Employee;
-import com.timesheet.model.Organisation;
 import com.timesheet.repository.EmployeeRepository;
 import com.timesheet.repository.OrganisationRepository;
 
