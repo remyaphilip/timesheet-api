@@ -151,7 +151,7 @@
 				success: function(data,status){
 					empData = data;
 					dateObj = new Date(data.joinDate.year,
-									   data.joinDate.monthValue - 1,
+									   data.joinDate.monthValue,
 									   data.joinDate.dayOfMonth);
 					
 				
@@ -183,17 +183,18 @@
 			
 			
 			$("#timeTable tbody tr").each(function(j,tr){
-				var $project = $(this).find('td:nth-child(2)').text();
+				var $project
+				$project = $(this).find('td:nth-child(2)').text();
 				$(this).find('td:not(:first,:nth-child(2),:last)').each(function(k,td){
 					var head = $("#timeTable  th").eq(k+2).text();
 					var headDate = new String(head.substring(3,5)  + '-' +
 								   head.substring(0,2) + '-' +
 								   head.substring(6,10));
 					if(!($(this).html() == '')){
-						row.empId    = empData.empId;
-						row.logDate  = headDate;  
+						//row.empId    = empData.empId;
 						row.task     = $project;
 						row.hours    = parseFloat($(this).html());
+						row.logDate  = headDate;  
 						tabData.push(row);
 					};	
 				});
@@ -203,7 +204,7 @@
 			console.log(JSON.stringify(tabData));
 		
 			$.ajax(
-				"http://localhost:8080/employee/timelog/tabData",
+				"http://localhost:8080/employee/101/timelog/tabdata",
 				{
 					type: 'POST',
 					data: JSON.stringify(tabData),
