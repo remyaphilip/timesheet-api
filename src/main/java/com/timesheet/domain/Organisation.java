@@ -20,6 +20,10 @@ import javax.persistence.Table;
 @Table(name = "organisation", catalog = "timesheet")
 public class Organisation implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5790958954280933376L;
 	private Integer orgId;
 	private String address;
 	private Integer contactNo;
