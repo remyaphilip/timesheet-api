@@ -1,4 +1,4 @@
-package com.timesheet.domain;
+package com.timesheet.model;
 
 // Generated Feb 18, 2018 3:41:47 PM by Hibernate Tools 5.2.3.Final
 

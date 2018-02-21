@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableJpaRepositories("com.timesheet.repository")
 @ComponentScan("com.timesheet")
-@EntityScan(basePackages = "com.timesheet.domain")
+@EntityScan(basePackages = "com.timesheet.model")
 @SpringBootApplication
 public class TimesheetApplication {
 

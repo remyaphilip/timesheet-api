@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timesheet.domain.Timelog;
+import com.timesheet.model.Timelog;
 
 public class TimeLogDto implements Serializable {
 	private static final long serialVersionUID = -8196181397762073126L;

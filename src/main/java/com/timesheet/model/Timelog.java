@@ -1,4 +1,4 @@
-package com.timesheet.domain;
+package com.timesheet.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -20,7 +20,7 @@ public class Timelog implements java.io.Serializable {
 	private static final long serialVersionUID = 1871977717947082854L;
 	private Integer id;
 	private Employee employee;
-	private LocalDate date;
+	private LocalDate logDate;
 	private String project;
 	private Float timetaken;
 
@@ -31,22 +31,21 @@ public class Timelog implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	public Timelog(Employee employee, LocalDate LocalDate, String project, Float timetaken) {
+	public Timelog(Employee employee, LocalDate logDate, String project, Float timetaken) {
 		this.employee = employee;
-		this.date = LocalDate;
+		this.logDate = logDate;
 		this.project = project;
 		this.timetaken = timetaken;
 	}
 
-	public Timelog(LocalDate date, String project, float timetaken) {
-		this.date = date;
+	public Timelog(LocalDate logDate, String project, float timetaken) {
+		this.logDate = logDate;
 		this.project = project;
 		this.timetaken = timetaken;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -67,13 +66,13 @@ public class Timelog implements java.io.Serializable {
 	}
 
 	//@Temporal(TemporalType.DATE)
-	@Column(name = "LocalDate", length = 10)
-	public LocalDate getLocalDate() {
-		return this.date;
+	@Column(name = "logDate", length = 10)
+	public LocalDate getLogdate() {
+		return this.logDate;
 	}
 
-	public void setLocalDate(LocalDate LocalDate) {
-		this.date = LocalDate;
+	public void setLogdate(LocalDate logDate) {
+		this.logDate = logDate;
 	}
 
 	@Column(name = "project", length = 45)

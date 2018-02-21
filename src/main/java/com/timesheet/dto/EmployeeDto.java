@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import com.timesheet.domain.Employee;
+import com.timesheet.model.Employee;
 
 public class EmployeeDto implements Serializable {
 
